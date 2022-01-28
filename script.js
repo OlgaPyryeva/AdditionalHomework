@@ -13,4 +13,9 @@ for (let i = 0; i < num.length; i++) {
   result *= num[i];
 }
 
-console.log(result);
+console.log(result); // ч.2 дз - получили произведение чисел из которых состоит переменная num
+
+result **= 3; // ч.3 дз возвели в степень 3
+//console.log(typeof result); тип число
+result = String(result);
+console.log(result.substr(0, 2)); // ч.4 дз - первые 2 цифры после возведения в степень

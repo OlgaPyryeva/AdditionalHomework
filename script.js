@@ -1,121 +1,46 @@
-let lang = prompt("Выберите язык дней недели", " en  или  ru");
-let weekDays = "";
-let n = +prompt("введите номер дня недели", "от 1 до 7");
+//1.Восстановить порядок книг.
 
-//Решить через
-//a) через if,
+const books = document.querySelectorAll(".book");
+books[0].before(books[1]);
+books[4].before(books[2]);
+books[3].before(books[4]);
+books[5].after(books[2]);
 
-if (n == 1 && lang == "ru") {
-  weekDays = "понедельник";
-} else if (n == 1 && lang == "en") {
-  weekDays = "monday";
-} else if (n == 2 && lang == "ru") {
-  weekDays = "вторник";
-} else if (n == 2 && lang == "en") {
-  weekDays = "tuesday";
-} else if (n == 3 && lang == "ru") {
-  weekDays = "среда";
-} else if (n == 3 && lang == "en") {
-  weekDays = "wednesday";
-} else if (n == 4 && lang == "ru") {
-  weekDays = "четверг";
-} else if (n == 4 && lang == "en") {
-  weekDays = "thursday";
-} else if (n == 5 && lang == "ru") {
-  weekDays = "пятница";
-} else if (n == 5 && lang == "en") {
-  weekDays = "friday";
-} else if (n == 6 && lang == "ru") {
-  weekDays = "суббота";
-} else if (n == 6 && lang == "en") {
-  weekDays = "saturday";
-} else if (n == 7 && lang == "ru") {
-  weekDays = "воскресенье";
-} else if (n == 7 && lang == "en") {
-  weekDays = "sunday";
-} else {
-  weekDays = "в неделе всего 7 дней / error";
-}
-console.log("Через иф " + weekDays);
+//2.Заменить картинку заднего фона на другую из папки image
 
-// b) через switch-case
+const bodyStyle = document.getElementsByTagName("body")[0];
+bodyStyle.style.backgroundImage = "url(./image/adv.jpg)";
 
-if (lang == "ru") {
-  switch (n) {
-    case 1:
-      weekDays = "Понедельник";
-      break;
-    case 2:
-      weekDays = "Вторник";
-      break;
-    case 3:
-      weekDays = "Среда";
-      break;
-    case 4:
-      weekDays = "Четверг";
-      break;
-    case 5:
-      weekDays = "Пятница";
-      break;
-    case 6:
-      weekDays = "Суббота";
-      break;
-    case 7:
-      weekDays = "Воскресенье";
-      break;
-    default:
-      weekDays = "Неверные данные";
-  }
-} else if (lang == "en") {
-  switch (n) {
-    case 1:
-      weekDays = "Monday";
-      break;
-    case 2:
-      weekDays = "Tuesday";
-      break;
-    case 3:
-      weekDays = "Wednesday";
-      break;
-    case 4:
-      weekDays = "Thursday";
-      break;
-    case 5:
-      weekDays = "Friday";
-      break;
-    case 6:
-      weekDays = "Saturday";
-      break;
-    case 7:
-      weekDays = "Sunday";
-      break;
-    default:
-      weekDays = "Wrong data";
-  }
-}
-console.log("через switch-case " + weekDays);
+//3.Исправить заголовок в книге 3( Получится - "Книга 3. this и Прототипы Объектов")
 
-//c) через многомерный массив без ифов и switch.
-let days = [
-  ["Понедельник", "Monday"],
-  ["Вторник", "Tuesday"],
-  ["Среда", "Wednesday"],
-  ["Четверг", "Thursday"],
-  ["Пятница", "Friday"],
-  ["Суббота", "Saturday"],
-  ["Воскресенье", "Sunday"],
-];
+books[4].querySelector("h2>a").textContent =
+  "Книга 3. this и Прототипы Объектов";
 
-lang == "ru"
-  ? console.log(days[n - 1][0])
-  : lang == "en"
-  ? console.log(days[n - 1][1])
-  : console.log("не правильно выбран язык");
+//4.Удалить рекламу со страницы
 
-//п.2 усложненного домашнего задания
-let namePerson = prompt("Введите имя");
-namePerson == "Артем"
-  ? console.log("директор")
-  : namePerson == "Александр"
-  ? console.log("преподаватель")
-  : console.log("студент");
+const advertising = document.querySelector(".adv");
+advertising.style.display = "none";
+
+//5.Восстановить порядок глав во второй и пятой книге (внимательно инспектируйте индексы элементов, поможет dev tools)
+const chapters = books[0].querySelectorAll("div > ul");
+const chapter = chapters[0].querySelectorAll("li");
+chapter[9].after(chapter[2]);
+chapter[8].after(chapter[7]);
+chapter[6].before(chapter[3]);
+chapter[8].after(chapter[4]);
+chapter[4].after(chapter[5]);
+
+const chaptersBookFour = books[5].querySelectorAll("div > ul");
+const chapterBookFour = chaptersBookFour[0].querySelectorAll("li");
+chapterBookFour[4].after(chapterBookFour[2]);
+chapterBookFour[6].after(chapterBookFour[5]);
+chapterBookFour[6].after(chapterBookFour[7]);
+chapterBookFour[1].after(chapterBookFour[9]);
+
+//6.в шестой книге добавить главу “Глава 8: За пределами ES6” и поставить её в правильное место
+
+const newChapter = document.createElement("li");
+newChapter.textContent = "Глава 8: За пределами ES6";
+const chaptersBookSix = books[2].querySelectorAll("div > ul");
+const chapterBookSix = chaptersBookSix[0].querySelectorAll("li");
+chapterBookSix[8].after(newChapter);

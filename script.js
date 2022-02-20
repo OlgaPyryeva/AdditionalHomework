@@ -1,32 +1,37 @@
-//1) Повесить на кнопку обработчик события click и реализовать такой функционал:
-//В input[type=text] можно ввести цвет: red, green, blue и так далее.
-//По нажатию на кнопку необходимо брать этот цвет и добавлять его свойству style="backgroundColor: " квадрата
-//Работать должно так: ввели в input[type=text] yellow, по нажатию на кнопку значение input[type=text]
-//попадает в свойство style="backgroundColor: yellow" и фон квадрата должен поменяться
-const btn = document.getElementById("btn");
-const colorInput = document.querySelector('input[type = "text"]');
-const square = document.getElementById("square");
-
-const changeColor = function (event) {
-  square.style.backgroundColor = colorInput.value;
+const DomElement = function (selector, height, width, bg, fontSize) {
+  this.selector = selector;
+  this.height = height;
+  this.width = width;
+  this.backgroundColor = bg;
+  this.fontSize = fontSize;
 };
 
-btn.addEventListener("click", changeColor);
+DomElement.prototype.createElemMethod = function (text) {
+  if (this.selector[0] === ".") {
+    const newDiv = document.createElement("div");
+    newDiv.className = this.selector.slice(1);
+    newDiv.textContent = text;
+    newDiv.style.cssText = `
+       height:${this.height}px;
+       width:${this.width}px;
+       background-color:${this.backgroundColor};
+       font-size:${this.fontSize}px`;
 
-//colorInput.addEventListener("change", changeColor);
+    document.body.prepend(newDiv);
+  }
+  if (this.selector[0] === "#") {
+    const newP = document.createElement("p");
+    newP.id = "second";
+    newP.textContent = "новый параграф";
+    newP.style.cssText = `
+       height:${this.height}px;
+       width:${this.width}px;
+       background-color:${this.backgroundColor};
+       font-size:${this.fontSize}px`;
 
-//2) В кружке (который внутри квадрата) есть кнопка. Дать ей свойство style="display: none; "
-const circle = document.getElementById("circle");
-circle.style.display = "none";
-
-//3) Повесить на input[type=range] обработчик события input и реализовать такой функционал:
-//при каждом изменении положения ползунка значение input[type=range] необходимо заносить
-//в свойства ширины и высоты кружка (который внутри квадрата) (height и width) (в процентах!!)
-const rangeInput = document.querySelector('input[type = "range"]');
-
-const changeSize = function (event) {
-  circle.style.display = "block";
-  circle.style.height = rangeInput.value + "%";
-  circle.style.width = rangeInput.value + "%";
+    document.body.prepend(newP);
+  }
 };
-rangeInput.addEventListener("input", changeSize);
+
+const domElem = new DomElement(".block", 10, 10, "red", 10);
+domElem.createElemMethod("текст");

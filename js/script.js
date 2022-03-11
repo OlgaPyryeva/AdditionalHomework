@@ -22,18 +22,17 @@ const sendData = (url, data) => {
 //3) Реализовать получение данных из файла .json (прикреплен под видео)  через функцию getData
 //http://127.0.0.1:5501/db.json
 
-getData("db.json")
-  .then((data) => {
-    newData = JSON.stringify(data);
-  })
-  .then((data) => console.log(newData));
+getData("db.json").then((data) => {
+  newData = data;
+  console.log(newData);
+});
 
 //4) После получения объекта из файла .json должна произойти отправка данных (которые мы получили из файла .json)
 //на URL через функцию sendData
 
 //https://jsonplaceholder.typicode.com/posts
 
-sendData("https://jsonplaceholder.typicode.com/posts", newData)
+sendData("https://jsonplaceholder.typicode.com/posts", JSON.stringify(newData))
   .then((newData) => console.log(newData))
   .catch((error) => console.log(error));
 
